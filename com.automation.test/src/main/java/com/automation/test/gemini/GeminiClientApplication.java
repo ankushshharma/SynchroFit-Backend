@@ -1,5 +1,6 @@
 package com.automation.test.gemini;
 
+import com.automation.test.gemini.config.ApiKeyProvider;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import okhttp3.*;
 import org.springframework.beans.factory.annotation.Value;
@@ -26,7 +27,8 @@ public class GeminiClientApplication {
 	private final OkHttpClient client;
 	private final ObjectMapper objectMapper;
 
-	public GeminiClientApplication() {
+	public GeminiClientApplication(ApiKeyProvider apiKeyProvider) {
+		this.apiKey = apiKeyProvider.getApiKey();
 		this.client = new OkHttpClient();
 		this.objectMapper = new ObjectMapper();
 	}
@@ -34,7 +36,7 @@ public class GeminiClientApplication {
 	@PostMapping("/generateContent")
 	public ResponseEntity<String> generateContent(@RequestBody String prompt) throws IOException {
 		String url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=" + apiKey;
-
+		System.out.println("ApiKey:"+apiKey);
 		// Prepare request body with user prompt
 		Map<String, Object> requestBody = new HashMap<>();
 		List<Map<String, Object>> contents = new ArrayList<>();
