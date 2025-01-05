@@ -20,7 +20,7 @@ import java.util.Map;
 @RestController
 public class GeminiClientApplication {
 
-	@Value("${google.api.key}")
+//	@Value("${google.api.key}")
 	private String apiKey;
 
 	private final OkHttpClient client;
